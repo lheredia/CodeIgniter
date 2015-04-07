@@ -580,8 +580,10 @@ class CI_Security {
 			return $output;
 		}
 
-
-		if (is_readable('/dev/urandom') && ($fp = fopen('/dev/urandom', 'rb')) !== FALSE)
+		/* 
+		Severity: Warning --> is_readable(): open_basedir restriction in effect. File(/dev/urandom) is not within the allowed path(s)
+		*/
+		if ( @is_readable('/dev/urandom') && ($fp = fopen('/dev/urandom', 'rb')) !== FALSE)
 		{
 			// Try not to waste entropy ...
 			is_php('5.4') && stream_set_chunk_size($fp, $length);
